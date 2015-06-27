@@ -69,6 +69,7 @@ clientTwilio.sendMessage({
         console.log(responseData.from); // outputs "+14506667788"
         console.log(responseData.body); // outputs "word to your mother."
 
+	res.end(responseData.body);
     }
 });
 
@@ -77,5 +78,4 @@ clientTwilio.sendMessage({
 
 
 
-	res.end('asd');
 });
