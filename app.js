@@ -196,3 +196,24 @@ app.get('/personInfo', function(reqst, respns) {
         });
 
 });
+
+//get student info
+app.get('/personalityInsights', function(reqst, respns) {
+    //person email id  
+   var personality_insights = watson.personality_insights({
+                                                "username": "51397aaa-2786-4342-9cb7-40f1225de1a7",
+                                                "password": "ufQQJaVROpjw",
+                                                version: 'v2'
+                                            });
+
+                                            personality_insights.profile({
+                                                    text: textval
+                                                },
+                                                function(err, response) {
+                                                    if (err)
+                                                        console.log('error:', err);
+                                                    else
+                                                        console.log(JSON.stringify(response, null, 2));
+                                                });
+});
+
