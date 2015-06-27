@@ -217,3 +217,40 @@ app.get('/personalityInsights', function(reqst, respns) {
                                                 });
 });
 
+
+//get student info
+app.get('/getCompInfo', function(reqst, respns) {
+    
+https.request({
+        host: 'query.yahooapis.com',
+        path: '/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20=%22' + reqst.query.name + '%22&format=json&env=http%3A%2F%2Fdatatables.org%2Falltables.env'
+    }, function (response) {
+        var rawData = '';
+        
+        response.on('data', function(chunk) {
+            rawData += chunk;
+        });
+
+        response.on('end', function() {
+            try {
+                // parse as JSON
+                var data = JSON.parse(rawData).query.results.quote;
+
+                if (data.StockExchange === null) {
+                    throw new Error('"' + tickerSymbol[0] + '" is not a valid ticker symbol');
+                }
+                else
+                    res.end(data);
+                
+            } catch (e) {
+                console.log('[error] ' + e.message);
+            }
+        });
+    });
+
+
+});
+
+
+
+

@@ -20,6 +20,6 @@ app.controller('myCtrl',function($scope,$location,$http) {
 
 $scope.login=function(){
 	//alert('asd');
- window.location.replace('./employerPostLogin.html');
+ window.location.replace('./employerpostlogin.html');
 }
 });

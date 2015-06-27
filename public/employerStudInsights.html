@@ -64,17 +64,21 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <h1>Employer Home</h1>
-                        <p>Welcome Employer of this company and of this name
-                        Goto dashboard to see the student profiles</p>
-                        <!-- show company stock info -->
+                    <div class="col-lg-8">
+                        <h1>Student Insights</h1>
+                        <div ng-repeat="x in studNames track by $index">
+                        <p>Name: {{x.name}} Email:{{x.email}} University:{{x.univ}}</p>
+                        <button class="btn btn-info" ng-click="getInsights($index)">Get Insights</button>
+                        <button class="btn btn-info" ng-click="shortlist($index)">Shortlist for next round</button>
+                        <button class="btn btn-info" ng-click="offer($index)">Give Job Offer</button>                        
+                        <button class="btn btn-info" ng-click="reject($index)">Reject</button>
+                        <hr/>
+                        </div>    
+                        </div>
+<div class="col-lg-4">
+Insights Info
+<hr/>
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
-                        make a table for this data
-                        https://github.com/mattlo/tickersymbol/blob/master/lib/tickersymbol.js
-
-
-
                     </div>
                 </div>
             </div>
@@ -90,7 +94,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
-    <script src="assets/js/employer-postlogin-angular.js"></script>
+    <script src="assets/js/employerStudInsights-angular.js"></script>
     <!-- Menu Toggle Script -->
     <script>
     $("#menu-toggle").click(function(e) {

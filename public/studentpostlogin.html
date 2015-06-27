@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="myApp">
 
 <head>
 
@@ -26,7 +26,7 @@
 
 </head>
 
-<body>
+<body ng-controller="myCtrl">
 
     <div id="wrapper">
 
@@ -39,16 +39,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">Dashboard</a>
+                    <a href="studentPostLogin.html">Homepage</a>
                 </li>
                 <li>
-                    <a href="#">Shortcuts</a>
+                    <a href="studentDashboard.html">Dashboard</a><!-- who all have added you -->
                 </li>
                 <li>
-                    <a href="#">Overview</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
+                    <a href="studentCompInsights.html">Company Insights</a><!-- search for company info -->
                 </li>
                 <li>
                     <a href="#">About</a>
@@ -69,8 +66,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1>Simple Sidebar</h1>
-                        <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                        <p>Welcome Employer of this company and of this name</p>
+                        Goto dashboard to see the student profiles
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     </div>
                 </div>
@@ -87,6 +84,7 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
+    <script src="assets/js/student-postlogin-angular.js"></script>
     <!-- Menu Toggle Script -->
     <script>
     $("#menu-toggle").click(function(e) {
