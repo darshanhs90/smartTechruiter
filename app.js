@@ -19,23 +19,11 @@ var client = new Twitter({
     access_token_secret: 'czQre16YZKoC4Csi18gGufu8PxF733aL5VnzbhurlGvHw'
 });
 var watson = require('watson-developer-cloud');
-var MyClient = require('../lib/idol-client.js')('f3129194-4f03-4419-80c2-f3aa041baf9a');
-MyClient.Q.longStackSupport = true;
 var AlchemyAPI = require('alchemy-api');
 var alchemy = new AlchemyAPI('7b6bf4773c39c9e271f6bd999fea5df5179a6dad');
 var apiKey = "DAKa8696003222b4812850342de17d0e267"; // Get from kandy.io 
 var userId = "user1"; // Get from kandy.io 
 var password = "1euminciduntconse1"; // Get from kandy.io 
-var Kandy = require("kandy");
-var kandy = new Kandy(apiKey);
-var userAccessToken;
-kandy.getUserAccessToken(userId, password, function(data, response) {
-    var dataJson = JSON.parse(data);
-    console.log(dataJson.result.user_access_token);
-    userAccessToken = dataJson.result.user_access_token;
-});
-
-kandy = new Kandy();
 var sendgrid = require('sendgrid')('username', 'password');
 var accountSid = 'AC07275e4294f1b0d42623c3ec9559911e';
 var authToken = '650d049a9bd99323fb899ce4b9e84fcc';
@@ -68,7 +56,7 @@ app.listen(appEnv.port, appEnv.bind, function() {
 
 app.get('/home',function(req,res){
 
-client.sendMessage({
+clientTwilio.sendMessage({
 
     to:'+14697672278', // Any number Twilio can deliver to
     from: '+14506667788', // A number you bought from Twilio and can use for outbound communication
