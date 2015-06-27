@@ -10,7 +10,6 @@ var express = require('express');
 var request = require('request');
 var https = require('https');
 var cors = require('cors');
-app.use(cors());
 var Twitter = require('twitter');
 var client = new Twitter({
     consumer_key: 'LmNp3JwAQZnuBr4SQFaM7UZG3',
@@ -21,9 +20,6 @@ var client = new Twitter({
 var watson = require('watson-developer-cloud');
 var AlchemyAPI = require('alchemy-api');
 var alchemy = new AlchemyAPI('7b6bf4773c39c9e271f6bd999fea5df5179a6dad');
-var apiKey = "DAKa8696003222b4812850342de17d0e267"; // Get from kandy.io 
-var userId = "user1"; // Get from kandy.io 
-var password = "1euminciduntconse1"; // Get from kandy.io 
 var sendgrid = require('sendgrid')('username', 'password');
 var accountSid = 'AC07275e4294f1b0d42623c3ec9559911e';
 var authToken = '650d049a9bd99323fb899ce4b9e84fcc';
@@ -39,7 +35,7 @@ var cfenv = require('cfenv');
   
 // create a new express server
 var app = express();
-
+app.use(cors());
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
 
