@@ -1,0 +1,13 @@
+applications:
+- services:
+  - mongodb
+  - IBM Insights for Twitter
+  - Concept Expansion-n1
+  - AlchemyAPI
+  disk_quota: 1024M
+  host: tickr
+  name: tickr
+  path: .
+  domain: mybluemix.net
+  instances: 1
+  memory: 256M
