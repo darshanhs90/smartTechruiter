@@ -121,7 +121,7 @@ app.get('/sendMail', function(reqst, rspns) {
 });
 
 
-
+/*
 //analyse company score in twitter passing tweet to ibm sentiment analyser
 app.use('/twitterCompanySentiment', function(reqst, respns) {
 
@@ -215,5 +215,5 @@ app.get('/personalityInsights', function(reqst, respns) {
                                                     else
                                                         console.log(JSON.stringify(response, null, 2));
                                                 });
-});
+});*/
 
