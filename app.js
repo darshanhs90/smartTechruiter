@@ -94,23 +94,53 @@ clientTwilio.sendMessage({
         console.log(responseData.from); // outputs "+14506667788"
         console.log(responseData.body); // outputs "word to your mother."
 
+        res.end('message sent')
+    }
+});
+});
+
+app.get('/message',function(req,res){
+
+clientTwilio.sendMessage({
+
+    to:'+14697672278', // Any number Twilio can deliver to
+    from: '+14694164117', // A number you bought from Twilio and can use for outbound communication
+    body: 'word to your mother.' // body of the SMS message
+
+}, function(err, responseData) { //this function is executed when a response is received from Twilio
+
+    if (!err) { // "err" is an error received during the request, if any
+
+        // "responseData" is a JavaScript object containing data received from Twilio.
+        // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
+        // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+
+        console.log(responseData.from); // outputs "+14506667788"
+        console.log(responseData.body); // outputs "word to your mother."
+
+        res.end('message sent')
+    }
+});
+});
+
+
+app.get('/call',function(req,res){
+
 clientTwilio.calls.create({ 
 	to: "+14697672278", 
 	from: "+14694164117", 
 	url: "https://www.dropbox.com/s/3nsmfduffri1lg5/twilio.xml",  
 	method: "GET",  
 	fallbackMethod: "GET",  
-	statusCallbackMethod: "GET",      
+	statusCallbackMethod: "GET",    
 	record: "false" 
 }, function(err, call) { 
 	console.log(call.sid); 
-	res.end(call.sid);
+	res.end('sid is'+call.sid);
+});
 });
 
 
-    }
-});
-});
 
 
 
