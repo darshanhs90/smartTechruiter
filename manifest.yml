@@ -1,8 +1,5 @@
 applications:
 - services:
-  - mongodb
-  - IBM Insights for Twitter
-  - Concept Expansion-n1
   - AlchemyAPI
   disk_quota: 1024M
   host: smartytech
