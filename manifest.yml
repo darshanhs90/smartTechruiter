@@ -1,5 +1,9 @@
 applications:
-- disk_quota: 1024M
+-services:
+  - mongodb
+  - IBM Insights for Twitter
+  - AlchemyAPI
+  disk_quota: 1024M
   host: smarttechruiter
   name: smartTechruiter
   path: .
