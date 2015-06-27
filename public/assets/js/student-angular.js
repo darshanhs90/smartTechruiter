@@ -2,7 +2,7 @@ var app=angular.module('myApp',[]);
 app.controller('myCtrl',function($scope,$location,$http) {
 
 $scope.login=function(){
-	alert('asd');
- $location.path('/studentpostlogin');
+	//alert('asd');
+ window.location.replace('./studentpostlogin.html');
 }
 });
