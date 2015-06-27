@@ -20,6 +20,7 @@ app.controller('myCtrl',function($scope,$location,$http) {
  });*/
 
 $scope.login=function(){
- $location.href('/employerpostlogin.html');
+	alert('asd');
+ $location.path('/employerpostlogin');
 }
 });
