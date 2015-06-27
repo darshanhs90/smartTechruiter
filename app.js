@@ -100,7 +100,7 @@ clientTwilio.calls.create({
 	url: "https://www.dropbox.com/s/3nsmfduffri1lg5/twilio.xml",  
 	method: "GET",  
 	fallbackMethod: "GET",  
-	statusCallbackMethod: "GET",    
+	statusCallbackMethod: "GET",      
 	record: "false" 
 }, function(err, call) { 
 	console.log(call.sid); 
