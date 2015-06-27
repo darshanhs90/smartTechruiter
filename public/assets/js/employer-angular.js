@@ -6,5 +6,6 @@ $http({
     method: "GET"
  }).success(function(data, status, headers, config) {
     alert(data);
+    console.log(data);
  });
 });
