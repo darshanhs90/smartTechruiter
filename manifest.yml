@@ -5,8 +5,8 @@ applications:
   - Concept Expansion-n1
   - AlchemyAPI
   disk_quota: 1024M
-  host: tickr
-  name: tickr
+  host: smartytech
+  name: smartytech
   path: .
   domain: mybluemix.net
   instances: 1
