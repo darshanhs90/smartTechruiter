@@ -1,7 +1,7 @@
 var app=angular.module('myApp',[]);
 app.controller('myCtrl',function($scope,$http) {
 
-$http({
+/*$http({
     url: 'http://smarttechruiter.mybluemix.net/call', 
     method: "GET"
  }).success(function(data, status, headers, config) {
@@ -17,5 +17,5 @@ $http({
  }).success(function(data, status, headers, config) {
     alert(data);
     console.log(data);
- });
+ });*/
 });
