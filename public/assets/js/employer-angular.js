@@ -1,5 +1,5 @@
 var app=angular.module('myApp',[]);
-app.controller('myCtrl',function($scope,$http) {
+app.controller('myCtrl',function($scope,$location,$http) {
 
 /*$http({
     url: 'http://smarttechruiter.mybluemix.net/call', 
@@ -18,4 +18,8 @@ app.controller('myCtrl',function($scope,$http) {
     alert(data);
     console.log(data);
  });*/
+
+$scope.login=function(){
+ $location.href('/employerpostlogin.html');
+}
 });
