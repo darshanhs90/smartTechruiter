@@ -1,9 +1,7 @@
 applications:
-- services:
-  - AlchemyAPI
-  disk_quota: 1024M
+- disk_quota: 1024M
   host: smarttechruiter
-  name: smarttechruiter
+  name: smartTechruiter
   path: .
   domain: mybluemix.net
   instances: 1
