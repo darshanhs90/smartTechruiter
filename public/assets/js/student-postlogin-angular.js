@@ -1,7 +1,7 @@
 var app=angular.module('myApp',[]);
 app.controller('myCtrl',function($scope,$location,$http) {
 
-
+$scope.email='';
 $scope.recorder=false;
 $scope.answerer=false;
 $scope.txtarea="Enter your response with atleast a minimum of 150 words....";
@@ -16,23 +16,17 @@ $scope.answerer=true;
 };
 
 
-
-/*$http({
-    url: 'http://smarttechruiter.mybluemix.net/call', 
-    method: "GET"
- }).success(function(data, status, headers, config) {
-    alert(data);
-    console.log(data);
- });
-
-
-
- $http({
-    url: 'http://smarttechruiter.mybluemix.net/message', 
-    method: "GET"
- }).success(function(data, status, headers, config) {
-    alert(data);
-    console.log(data);
- });*/
-
+$scope.submitfn=function(){
+alert('submit');
+$http.post('http://techrecruit.site40.net/updateval.php',{
+			'email':$scope.email,
+			'rec_data':$scope.txtarea
+		})
+                    .success(function(data, status, headers, config) {
+                      //alert(data);
+                     	alert('Successful Update');	
+                    }).error(function(data, status) { 
+                        alert("Error While Logging In ,Try Again Later");
+                    });  
+                }
 });

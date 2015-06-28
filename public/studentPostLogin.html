@@ -76,7 +76,11 @@
                         </textarea>
                         <br>
                         <h5 class="pull-center">{{txtarea.length}} characters entered</h5>
-                        <button ng-show="txtarea.length>200" class="btn btn-info">Submit your Response</button>
+
+
+                        <input class="form form-control"type="email" ng-model="email" placeholder="enter emailid to confirm" ng-show="txtarea.length>400"/>
+                        <br>
+                        <button  ng-show="txtarea.length>400 && email!=''" class="btn btn-info" ng-click="submitfn()">Submit your Response</button>
                     </div>
 
                         <hr/>
