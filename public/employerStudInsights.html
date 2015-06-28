@@ -61,8 +61,8 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <h1>Student Insights</h1>
-                        <div ng-repeat="x in studNames track by $index">
-                        <p>Name: {{x.name}} Email:{{x.email}} University:{{x.univ}}</p>
+                        <div ng-repeat="x in listOfNames track by $index">
+                        <p>Name: {{x.fname}} {{x.lname}} Email:{{x.email}} University:{{x.univname}}</p>
                         <button class="btn btn-info" ng-click="getInsights($index)">Get Insights</button>
                         <button class="btn btn-info" ng-click="shortlist($index)">Shortlist for next round</button>
                         <button class="btn btn-info" ng-click="offer($index)">Give Job Offer</button>                        
@@ -89,6 +89,7 @@ Insights Info
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
+<script src="assets/js/angular.min.js"></script>   
     <script src="assets/js/employerStudInsights-angular.js"></script>
     <!-- Menu Toggle Script -->
     <script>

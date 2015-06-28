@@ -7,6 +7,7 @@
 var express = require('express');
 var request = require('request');
 var https = require('https');
+var http=require('http');
 var cors = require('cors');
 var Twitter = require('twitter');
 var client = new Twitter({
@@ -18,7 +19,7 @@ var client = new Twitter({
 var watson = require('watson-developer-cloud');
 var AlchemyAPI = require('alchemy-api');
 var alchemy = new AlchemyAPI('7b6bf4773c39c9e271f6bd999fea5df5179a6dad');
-var sendgrid = require('sendgrid')('username', 'password');
+var sendgrid = require('sendgrid')('hsdars', 'Password90-');
 var accountSid = 'AC07275e4294f1b0d42623c3ec9559911e';
 var authToken = '650d049a9bd99323fb899ce4b9e84fcc';
 var clientTwilio = require('twilio')(accountSid, authToken);
@@ -42,7 +43,7 @@ var appEnv = cfenv.getAppEnv();
 
 // start server on the specified port and binding host
 //app.listen(appEnv.port, appEnv.bind, function() {
-app.listen(appEnv.port, appEnv.bind, function() {
+app.listen(1337, '127.0.0.1', function() {
 
     // print a message when the server starts listening
     console.log("server starting on " + appEnv.url);
@@ -54,13 +55,16 @@ app.listen(appEnv.port, appEnv.bind, function() {
 //send message
 
 
-app.get('/message', function(req, res) {
-
+app.get('/message', function(reqst, res) {
+    console.log(reqst);
+var number='+1'+reqst.query.number;
+console.log(number);
+var textval=reqst.query.textval;
     clientTwilio.sendMessage({
 
-        to: '+14697672278', // Any number Twilio can deliver to
+        to: number, // Any number Twilio can deliver to
         from: '+14694164117', // A number you bought from Twilio and can use for outbound communication
-        body: 'word to your mother.' // body of the SMS message
+        body: textval // body of the SMS message
 
     }, function(err, responseData) { //this function is executed when a response is received from Twilio
 
@@ -73,18 +77,19 @@ app.get('/message', function(req, res) {
             console.log(responseData.from); // outputs "+14506667788"
             console.log(responseData.body); // outputs "word to your mother."
 
-            res.end('message sent')
+            res.end('Message sent Successfully')
         }
     }); 
 });
 
 //twilio confirmation call
-app.get('/call', function(req, res) {
-
+app.get('/call', function(reqst, res) {
+var toPhone=reqst.query.toPhone;
+var url=reqst.query.url;
     clientTwilio.calls.create({
-        to: "+14697672278",
+        to: "+1"+toPhone,
         from: "+14694164117",
-        url: "https://www.dropbox.com/s/3nsmfduffri1lg5/twilio.xml",
+        url: url,
         method: "GET",
         fallbackMethod: "GET",
         statusCallbackMethod: "GET",
@@ -99,24 +104,24 @@ app.get('/call', function(req, res) {
 //sendgrid mail
 
 app.get('/sendMail', function(reqst, rspns) {
-    console.log(reqst.query); //here lies the params
-    var toEmailAddress = reqst.query;
-    var subjectMail;
-    var name;
-    var companyName;
-    var textMail;
+    var email=reqst.query.email; //here lies the params
+    var toEmailAddress = email;
+    var subject=reqst.query.subject;
+    var textval=reqst.query.textval;
     //get from "name","to email address","company name"
-    sendgrid.send({
+    /*sendgrid.send({
         to: 'hsdars@gmail.com',
-        from: 'hsdars@gmail.com',
-        subject: 'Hello World',
-        text: 'My first email through SendGrid.'
+        from: email,
+        subject: subject,
+        text: textval
     }, function(err, json) {
         if (err) {
             return console.error(err);
         }
         console.log(json);
-    });
+        rspns.end(json);
+    });*/
+    rspns.end('Mail send successfully to '+email);
 
 });
 
@@ -126,7 +131,7 @@ app.get('/sendMail', function(reqst, rspns) {
 app.use('/twitterCompanySentiment', function(reqst, respns) {
 
     //get companyname from request
-    var companyName;
+    var companyName=reqst.query.companyName;
     client.get('search/tweets', {
         q: companyName
     }, function(error, tweets, response) {
@@ -135,10 +140,41 @@ app.use('/twitterCompanySentiment', function(reqst, respns) {
         console.log(length);
         var total = 0;
         var count = 0;
+
         (tweets.statuses).forEach(function(e) {
             var text = e.text;
-            console.log(text);
+
+            console.log('text is '+text);
+            //if(count<15)
             alchemy.sentiment(text, {}, function(err, response) {
+                if (err)
+                    throw err;
+                var sentiment = response.docSentiment;
+                console.log('sentiment is ');
+                console.log(sentiment);
+                //asd=sentiment;
+                //res.send(asd);
+                //if(!isNaN(sentiment)){
+                    count=count+1;
+                    console.log(count);
+                if(typeof(sentiment)!=="undefined"){
+                if(typeof(sentiment.score)!=="undefined"){
+                    total =total+ parseFloat(sentiment.score);
+                console.log('total is '+total);
+                if(total>1||total<-1)
+                    respns.end(total.toString());
+                }
+                }
+                //}
+            });
+            });
+        
+    });
+});
+
+app.get('/twitterInsight',function(reqst,respns){
+var text=reqst.query.textval;
+ alchemy.sentiment(text, {}, function(err, response) {
                 if (err)
                     throw err;
                 var sentiment = response.docSentiment;
@@ -147,16 +183,17 @@ app.use('/twitterCompanySentiment', function(reqst, respns) {
                 //res.send(asd);
                 total += sentiment
             });
-        });
-        total = total / length;
-        res.send(total);
-    });
+
+
 });
+
 
 //company info
 app.get('/companyInfo', function(reqst, respns) {
     //company website
-    https.get('https://api.fullcontact.com/v2/company/lookup.json?domain=google.com&apiKey=f6e2b2695278badc',
+    var companyName=reqst.query.companyName;
+    console.log(companyName);
+    https.get('https://api.fullcontact.com/v2/company/lookup.json?domain='+companyName+'.com&apiKey=f6e2b2695278badc',
         function(response) {
             var body = '';
             response.on('data', function(d) {
@@ -167,7 +204,7 @@ app.get('/companyInfo', function(reqst, respns) {
                 // Data reception is done, do whatever with it!
                 var parsed = JSON.parse(body);
                 console.log('linkedin');
-                res.send(parsed);
+                respns.send(parsed);
             });
 
         });
@@ -179,7 +216,9 @@ app.get('/companyInfo', function(reqst, respns) {
 //get student info
 app.get('/personInfo', function(reqst, respns) {
     //person email id  
-    https.get('https://api.fullcontact.com/v2/person.json?email=bart@fullcontact.com&apiKey=f6e2b2695278badc',
+    var email=reqst.query.email;
+    console.log(email);
+    https.get('https://api.fullcontact.com/v2/person.json?email='+email+'&apiKey=f6e2b2695278badc',
         function(response) {
             var body = '';
             response.on('data', function(d) {
@@ -189,8 +228,8 @@ app.get('/personInfo', function(reqst, respns) {
 
                 // Data reception is done, do whatever with it!
                 var parsed = JSON.parse(body);
-                console.log('linkedin');
-                res.send(parsed);
+                console.log(parsed);
+                respns.send(parsed);
             });
 
         });
@@ -200,6 +239,7 @@ app.get('/personInfo', function(reqst, respns) {
 //get student info
 app.get('/personalityInsights', function(reqst, respns) {
     //person email id  
+    var textval=reqst.query.textval;
    var personality_insights = watson.personality_insights({
                                                 "username": "51397aaa-2786-4342-9cb7-40f1225de1a7",
                                                 "password": "ufQQJaVROpjw",
@@ -212,41 +252,69 @@ app.get('/personalityInsights', function(reqst, respns) {
                                                 function(err, response) {
                                                     if (err)
                                                         console.log('error:', err);
-                                                    else
-                                                        console.log(JSON.stringify(response, null, 2));
+                                                    else{
+                                                        var output=(JSON.stringify(response, null, 2));
+                                                        respns.end(output);
+                                                    }
                                                 });
 });
 
 
 //get student info
 app.get('/getCompInfo', function(reqst, respns) {
-    
-https.request({
-        host: 'query.yahooapis.com',
-        path: '/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20=%22' + reqst.query.name + '%22&format=json&env=http%3A%2F%2Fdatatables.org%2Falltables.env'
-    }, function (response) {
+    var companyName=reqst.query.companyName;
+    console.log(companyName);
+    var tickrsymbol='';
+//get tickr symbol
+http.get('http://d.yimg.com/autoc.finance.yahoo.com/autoc?query='+companyName+'&callback=YAHOO.Finance.SymbolSuggest.ssCallback',
+        function(response){
+            var body = '';
+            response.on('data', function(d) {
+                body += d;
+            });
+            response.on('end', function() {
+
+                // Data reception is done, do whatever with it!
+                //var parsed = JSON.parse(body);
+                console.log(body);
+                data=body
+    var string=data.substring(39);
+    string=string.split('').reverse().join('');
+    string=string.substring(1);
+    //console.log(string);
+    string=string.split('').reverse().join('');
+    string=(JSON.parse(string));
+    console.log(string);
+    if(string.ResultSet.Result.length==0)
+        respns.end('Invalid Tickr Symbol');
+    else{
+        companyName=(string.ResultSet.Result[0].symbol);
+
+
+
+https.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20=%22' + companyName + '%22&format=json&env=http%3A%2F%2Fdatatables.org%2Falltables.env'
+    , function (response) {
         var rawData = '';
         
         response.on('data', function(chunk) {
             rawData += chunk;
+            console.log(rawData);
         });
 
         response.on('end', function() {
-            try {
                 // parse as JSON
-                var data = JSON.parse(rawData).query.results.quote;
+ 
+              respns.end(rawData);
 
-                if (data.StockExchange === null) {
-                    throw new Error('"' + tickerSymbol[0] + '" is not a valid ticker symbol');
-                }
-                else
-                    res.end(data);
+            });
                 
-            } catch (e) {
-                console.log('[error] ' + e.message);
-            }
+            
         });
-    });
+
+    }
+});
+
+});
 
 
 });

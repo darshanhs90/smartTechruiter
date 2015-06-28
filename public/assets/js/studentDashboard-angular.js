@@ -1,11 +1,11 @@
 var app=angular.module('myApp',[]);
 app.controller('myCtrl',function($scope,$location,$http) {
-// var x=require("global.js");
-// x.temp=100;
 
-//php request to get data from "listOfNames"
 
-$http.get('http://techrecruit.site40.net/retrieve.php')
+
+//get listOfNames from table
+
+$http.get('http://techrecruit.site40.net/rec_retrieve.php')
                     .success(function(data, status, headers, config) {
                       alert(data);
                      console.log(data);
@@ -14,5 +14,25 @@ $http.get('http://techrecruit.site40.net/retrieve.php')
                     }).error(function(data, status) { 
                         alert("Error While Fetching Data,Try Again");
                     });  
+
+
+
+/*$http({
+    url: 'http://smarttechruiter.mybluemix.net/call', 
+    method: "GET"
+ }).success(function(data, status, headers, config) {
+    alert(data);
+    console.log(data);
+ });
+
+
+
+ $http({
+    url: 'http://smarttechruiter.mybluemix.net/message', 
+    method: "GET"
+ }).success(function(data, status, headers, config) {
+    alert(data);
+    console.log(data);
+ });*/
 
 });
