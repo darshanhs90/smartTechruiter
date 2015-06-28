@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Smart Techruiter</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -35,7 +35,7 @@
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a href="#">
-                        Start Bootstrap
+Student Info
                     </a>
                 </li>
                 <li>
@@ -72,6 +72,15 @@
                         
                     </div>
                     <div >
+
+<div ng-show="score!=''">
+<h3>Voice Interview Insight</h3>
+<h4>SCORE:{{score.score}}</h4>
+<br>
+<h4>TYPE:{{score.type}}</h4>
+</div>
+
+
                     <div ng-show="pInfo!=''">
 <p>Full Name:{{pInfo.contactInfo.fullName}}</p>
 <p>Given Name:{{pInfo.contactInfo.givenName}}</p>
@@ -83,6 +92,8 @@
 <p>username:{{x.username}}</p>
 </div>
 </div>
+
+
 
 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
 

@@ -11,7 +11,7 @@ app.controller('myCtrl',function($scope,$http) {
 //                     });  
 
 $http({
-    url: 'http://localhost:1337/getCompInfo', 
+    url: 'http://smarttechruiter.mybluemix.net/getCompInfo', 
     method: "GET",
     params:{companyName:'Google'}
  }).success(function(data, status, headers, config) {
@@ -20,7 +20,7 @@ $http({
 		if(data!='Invalid Tickr Symbol')
 			$scope.stockData=data.query.results.quote;  
 		else{
-			alert('The company you have regsitered for is invalid');	
+			console.log('The company you have regsitered for is invalid');	
 			$scope.stockData='';
 		}
 

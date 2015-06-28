@@ -6,8 +6,6 @@ $scope.insights='';
 $scope.listOfNames='';
 $http.get('http://techrecruit.site40.net/retrieve.php')
                     .success(function(data, status, headers, config) {
-                      alert(data);
-                     console.log(data);
                             $scope.listOfNames=data;
                             console.log(data);
                     }).error(function(data, status) { 
@@ -20,7 +18,7 @@ $scope.getInsights=function($val){
 
 
  $http({
-    url: 'http://localhost:1337/personalityInsights', 
+    url: 'http://smarttechruiter.mybluemix.net/personalityInsights', 
     method: "GET",
     params:{val:val}
  }).success(function(data, status, headers, config) {
@@ -44,7 +42,7 @@ $scope.shortlist=function($val){
     var textval='Congrats.You have been shortlisted for a job.';
     
 $http({
-    url: 'http://localhost:1337/message', 
+    url: 'http://smarttechruiter.mybluemix.net/message', 
     method: "GET",
     params:{number:number,textval:textval}
  }).success(function(data, status, headers, config) {
@@ -57,7 +55,7 @@ $http({
  var email=$scope.listOfNames[$val].email;
  var subject='Job Shortlist';
 $http({
-    url: 'http://localhost:1337/sendMail', 
+    url: 'http://smarttechruiter.mybluemix.net/sendMail', 
     method: "GET",
     params:{email:email,textval:textval,subject:subject}
  }).success(function(data, status, headers, config) {
@@ -76,7 +74,7 @@ $scope.offer=function($val){
     var textval='Congrats.You have been Offered for a job.';
     
 $http({
-    url: 'http://localhost:1337/message', 
+    url: 'http://smarttechruiter.mybluemix.net/message', 
     method: "GET",
     params:{number:number,textval:textval}
  }).success(function(data, status, headers, config) {
@@ -89,7 +87,7 @@ $http({
  var email=$scope.listOfNames[$val].email;
  var subject='Job Offer';
 $http({
-    url: 'http://localhost:1337/sendMail', 
+    url: 'http://smarttechruiter.mybluemix.net/sendMail', 
     method: "GET",
     params:{email:email,textval:textval,subject:subject}
  }).success(function(data, status, headers, config) {
@@ -100,7 +98,7 @@ $http({
  var toPhone=$scope.listOfNames[$val].pnumber;
  var url='https://s3-us-west-2.amazonaws.com/hackathonutd/offer.xml';
 $http({
-    url: 'http://localhost:1337/call', 
+    url: 'http://smarttechruiter.mybluemix.net/call', 
     method: "GET",
     params:{toPhone:toPhone,url:url}
  }).success(function(data, status, headers, config) {

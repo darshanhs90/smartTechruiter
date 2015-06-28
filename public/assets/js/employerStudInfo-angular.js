@@ -4,11 +4,12 @@ app.controller('myCtrl',function($scope,$location,$http) {
 
 //php request to get data from "listOfNames"
 $scope.pInfo='';
+$scope.getSnaScore='';
+$scope.score='';
+
 $scope.listOfNames='';
 $http.get('http://techrecruit.site40.net/retrieve.php')
                     .success(function(data, status, headers, config) {
-                      alert(data);
-                     console.log(data);
                             $scope.listOfNames=data;
                             console.log(data);
                     }).error(function(data, status) { 
@@ -21,11 +22,11 @@ $scope.getInfo=function($val){
     //call getPerson info with email id
      var email=$scope.listOfNames[$val].email;
 $http({
-    url: 'http://localhost:1337/personInfo', 
+    url: 'http://smarttechruiter.mybluemix.net/personInfo', 
     method: "GET",
     params:{email:email}
  }).success(function(data, status, headers, config) {
-    alert(data);
+    //alert(data);
     console.log(data);
     $scope.pInfo=data;
     $scope.profiles=data.socialProfiles;
@@ -37,13 +38,15 @@ $http({
 };
 $scope.getSnaScore=function($val){
 //sna score based on the text input
-var textval=$scope.listOfNames[$val].rec_data;
+var val=$val;
 $http({
-    url: 'http://localhost:1337/twitterInsight', 
-    method: "GET"
+    url: 'http://smarttechruiter.mybluemix.net/twitterInsight', 
+    method: "GET",
+    params:{val:val}
  }).success(function(data, status, headers, config) {
-    alert(data);
+    //alert(data);
     console.log(data);
+    $scope.score=(data);
  });
 };
 

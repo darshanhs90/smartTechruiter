@@ -175,17 +175,33 @@ app.use('/twitterCompanySentiment', function(reqst, respns) {
 });
 
 app.get('/twitterInsight',function(reqst,respns){
-var text=reqst.query.textval;
- alchemy.sentiment(text, {}, function(err, response) {
+var val=reqst.query.val;
+http.get('http://techrecruit.site40.net/retrieve.php',
+        function(response){
+            var body = '';
+            response.on('data', function(d) {
+                body += d;
+            });
+            response.on('end', function() {
+
+               
+               // console.log(body);
+                
+                 var parsed = JSON.parse(body);
+                 var textval=(parsed[val].rec_data);
+
+
+ alchemy.sentiment(textval, {}, function(err, response) {
                 if (err)
                     throw err;
                 var sentiment = response.docSentiment;
                 console.log(sentiment);
                 //asd=sentiment;
                 //res.send(asd);
-                total += sentiment
+                respns.end(JSON.stringify(sentiment));
             });
-
+});
+        });
 
 });
 

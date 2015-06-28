@@ -10,7 +10,7 @@ var companyName=$scope.srch;
 
 
 $http({
-    url: 'http://localhost:1337/getCompInfo', 
+    url: 'http://smarttechruiter.mybluemix.net/getCompInfo', 
     method: "GET",
     params:{companyName:companyName}
  }).success(function(data, status, headers, config) {

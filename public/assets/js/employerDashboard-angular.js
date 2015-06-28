@@ -7,9 +7,8 @@ app.controller('myCtrl',function($scope,$location,$http) {
 
 $http.get('http://techrecruit.site40.net/retrieve.php')
                     .success(function(data, status, headers, config) {
-                      alert(data);
-                     console.log(data);
-                            $scope.listOfNames=data;
+                      //alert(data);
+                     		$scope.listOfNames=data;
                             console.log(data);
                     }).error(function(data, status) { 
                         alert("Error While Fetching Data,Try Again");
