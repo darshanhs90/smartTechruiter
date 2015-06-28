@@ -28,7 +28,7 @@ var speech_to_text = watson.speech_to_text({
     password: 'WNMkUbFzLf6c',
     version: 'v1'
 });
-var bodyParser=require("body-parser");
+
 // cfenv provides access to your Cloud Foundry environment
 // for more info, see: https://www.npmjs.com/package/cfenv
 var cfenv = require('cfenv');
@@ -38,7 +38,7 @@ var app = express();
 app.use(cors());
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.json({ type: 'application/*+json' }))
+
 
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
