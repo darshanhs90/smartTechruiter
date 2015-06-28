@@ -26,6 +26,8 @@ $http({
  }).success(function(data, status, headers, config) {
  	console.log(data);
  			$scope.total=data;
+ 			if($scope.total<0)
+ 				$scope.total=Math.Random();
 		});
 }
 		else{
