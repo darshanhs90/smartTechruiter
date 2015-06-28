@@ -1,6 +1,6 @@
 var app=angular.module('myApp',[]);
 app.controller('myCtrl',function($scope,$location,$http) {
-
+$scope.insights='';
 
 //php request to get data from "listOfNames"
 $scope.listOfNames='';
@@ -15,17 +15,24 @@ $http.get('http://techrecruit.site40.net/retrieve.php')
                     });  
 $scope.getInsights=function($val){
 	//get text corresponding to the val and pass the val  
-    var txtval=$scope.listOfNames[$val].rec_data;
-$http({
+    var val=$val;
+   
+
+
+ $http({
     url: 'http://localhost:1337/personalityInsights', 
     method: "GET",
-    params:{txtval:txtval}
+    params:{val:val}
  }).success(function(data, status, headers, config) {
-    alert(data);
-    console.log(data);
- });
-
-
+    //alert(data);
+    $scope.insights=data.tree.children;
+    $scope.personality=($scope.insights[0].children[0].children);
+    $scope.needs=($scope.insights[0].children[0].children);
+    $scope.values=($scope.insights[1].children[0].children);
+    console.log($scope.needs);
+    console.log($scope.values);
+    //console.log(data);
+});
 
 
 };

@@ -28,6 +28,7 @@ var speech_to_text = watson.speech_to_text({
     password: 'WNMkUbFzLf6c',
     version: 'v1'
 });
+var bodyParser=require("body-parser");
 // cfenv provides access to your Cloud Foundry environment
 // for more info, see: https://www.npmjs.com/package/cfenv
 var cfenv = require('cfenv');
@@ -37,13 +38,14 @@ var app = express();
 app.use(cors());
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json({ type: 'application/*+json' }))
 
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
 // start server on the specified port and binding host
-app.listen(appEnv.port, appEnv.bind, function() {
-//app.listen(1337, '127.0.0.1', function() {
+//app.listen(appEnv.port, appEnv.bind, function() {
+app.listen(1337, '127.0.0.1', function() {
 
     // print a message when the server starts listening
     console.log("server starting on " + appEnv.url);
@@ -238,8 +240,23 @@ app.get('/personInfo', function(reqst, respns) {
 
 //get student info
 app.get('/personalityInsights', function(reqst, respns) {
-    //person email id  
-    var textval=reqst.query.textval;
+   var val=reqst.query.val;
+
+http.get('http://techrecruit.site40.net/retrieve.php',
+        function(response){
+            var body = '';
+            response.on('data', function(d) {
+                body += d;
+            });
+            response.on('end', function() {
+
+               
+               // console.log(body);
+                
+                 var parsed = JSON.parse(body);
+                 var textval=(parsed[val].rec_data);
+                 
+
    var personality_insights = watson.personality_insights({
                                                 "username": "51397aaa-2786-4342-9cb7-40f1225de1a7",
                                                 "password": "ufQQJaVROpjw",
@@ -257,6 +274,11 @@ app.get('/personalityInsights', function(reqst, respns) {
                                                         respns.end(output);
                                                     }
                                                 });
+        });
+    });
+
+
+
 });
 
 

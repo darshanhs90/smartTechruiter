@@ -59,7 +59,7 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-6">
                         <h1>Student Insights</h1>
                         <div ng-repeat="x in listOfNames track by $index">
                         <p>Name: {{x.fname}} {{x.lname}} Email:{{x.email}} University:{{x.univname}}</p>
@@ -70,9 +70,44 @@
                         <hr/>
                         </div>    
                         </div>
-<div class="col-lg-4">
-Insights Info
+<div class="col-lg-6" >
+<div style="width:10;height:100;overflow:scroll" ng-show="insights!=''">    
+<h1>Insights Info</h1>
+<div>
+    <b>{{personality[0].name}}</b>
+<div ng-repeat="x in personality">
+    <b>{{x.category}}:</b> {{x.percentage}}% 
+    <div ng-repeat="y in x.children">
+        {{y.name}} :{{y.percentage}}% 
+    </div>
+</div>
+</div>
 <hr/>
+<div>
+    <b>{{needs[0].name}}</b>
+<div ng-repeat="x in needs">
+    <b>{{x.category}} :</b> {{x.percentage}}% 
+    <div ng-repeat="y in x.children">
+        {{y.name}}: {{y.percentage}}% 
+    </div>
+</div>
+</div>
+<hr/>
+<div>
+    <b>{{values[0].name}}</b>
+<div ng-repeat="x in values">
+    <b>{{x.name}}:</b> {{x.percentage}}% 
+   
+</div>
+</div>
+
+
+
+
+
+
+<hr/>
+</div>
                         <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
                     </div>
                 </div>
