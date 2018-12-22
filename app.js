@@ -11,21 +11,21 @@ var http=require('http');
 var cors = require('cors');
 var Twitter = require('twitter');
 var client = new Twitter({
-    consumer_key: 'LmNp3JwAQZnuBr4SQFaM7UZG3',
-    consumer_secret: 'Xps6ziqIhZ0exAPoIAeyqj7myu7L78ZLHQDni67dzD9koJQTAD',
-    access_token_key: '151128859-F4Wk8KebqH4ZDwp8tMWY8PkoTQzfiEJrN1t2Knfc',
-    access_token_secret: 'czQre16YZKoC4Csi18gGufu8PxF733aL5VnzbhurlGvHw'
+    consumer_key: 'consumer_key',
+    consumer_secret: 'consumer_secret',
+    access_token_key: 'access_token_key',
+    access_token_secret: 'access_token_secret'
 });
 var watson = require('watson-developer-cloud');
 var AlchemyAPI = require('alchemy-api');
-var alchemy = new AlchemyAPI('7b6bf4773c39c9e271f6bd999fea5df5179a6dad');
-var sendgrid = require('sendgrid')('hsdars', 'Password90-');
-var accountSid = 'AC07275e4294f1b0d42623c3ec9559911e';
-var authToken = '650d049a9bd99323fb899ce4b9e84fcc';
+var alchemy = new AlchemyAPI('id');
+var sendgrid = require('sendgrid')('id', 'pwd');
+var accountSid = 'id';
+var authToken = 'token';
 var clientTwilio = require('twilio')(accountSid, authToken);
 var speech_to_text = watson.speech_to_text({
-    username: '1a4e2a43-2a65-4e28-b9bc-2947c6a48e47',
-    password: 'WNMkUbFzLf6c',
+    username: 'id',
+    password: 'pwd',
     version: 'v1'
 });
 
@@ -65,7 +65,7 @@ var textval=reqst.query.textval;
     clientTwilio.sendMessage({
 
         to: number, // Any number Twilio can deliver to
-        from: '+14694164117', // A number you bought from Twilio and can use for outbound communication
+        from: '+num', // A number you bought from Twilio and can use for outbound communication
         body: textval // body of the SMS message
 
     }, function(err, responseData) { //this function is executed when a response is received from Twilio
@@ -90,7 +90,7 @@ var toPhone=reqst.query.toPhone;
 var url=reqst.query.url;
     clientTwilio.calls.create({
         to: "+1"+toPhone,
-        from: "+14694164117",
+        from: "+num",
         url: url,
         method: "GET",
         fallbackMethod: "GET",
@@ -112,7 +112,7 @@ app.get('/sendMail', function(reqst, rspns) {
     var textval=reqst.query.textval;
     //get from "name","to email address","company name"
     /*sendgrid.send({
-        to: 'hsdars@gmail.com',
+        to: 'id',
         from: email,
         subject: subject,
         text: textval
@@ -211,7 +211,7 @@ app.get('/companyInfo', function(reqst, respns) {
     //company website
     var companyName=reqst.query.companyName;
     console.log(companyName);
-    https.get('https://api.fullcontact.com/v2/company/lookup.json?domain='+companyName+'.com&apiKey=f6e2b2695278badc',
+    https.get('https://api.fullcontact.com/v2/company/lookup.json?domain='+companyName+'.com&apiKey=apiKey',
         function(response) {
             var body = '';
             response.on('data', function(d) {
@@ -236,7 +236,7 @@ app.get('/personInfo', function(reqst, respns) {
     //person email id  
     var email=reqst.query.email;
     console.log(email);
-    https.get('https://api.fullcontact.com/v2/person.json?email='+email+'&apiKey=f6e2b2695278badc',
+    https.get('https://api.fullcontact.com/v2/person.json?email='+email+'&apiKey=apiKey',
         function(response) {
             var body = '';
             response.on('data', function(d) {
@@ -274,8 +274,8 @@ http.get('http://techrecruit.site40.net/retrieve.php',
                  
 
    var personality_insights = watson.personality_insights({
-                                                "username": "51397aaa-2786-4342-9cb7-40f1225de1a7",
-                                                "password": "ufQQJaVROpjw",
+                                                "username": "username",
+                                                "password": "password",
                                                 version: 'v2'
                                             });
 
